@@ -1,0 +1,40 @@
+# .NET MAUI
+/.NETMauiPreview/
+/obj/
+/bin/
+/Properties/
+/packages/
+/*.vs/
+/*.userprefs
+/*.suo
+/*.cache
+/*.dll
+/*.exe
+/*.pdb
+
+# JetBrains
+/.idea/
+/*.iml
+/*.ipr
+/*.iws
+/*.bak
+/*.tmp
+/.DS_Store
+
+# Build and NuGet artifacts
+/*.sln.cache
+/*.sln.DotSettings
+/*.sln.ide
+
+# User-specific files
+/_ReSharper*/
+/*.resharper*
+*.sln.user
+
+# Visual Studio Code
+.vscode/
+/.vscode/
+
+# Rider
+/.rider/
+/.rider.cs/

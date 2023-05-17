@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<StackLayout
+    Spacing="10"
+    x:Class="CalendarMaui.CustomControls.CalendarView"
+    x:Name="this"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Label
+            FontAttributes="Bold"
+            FontSize="22"
+            Grid.Column="0"
+            Text="{Binding Source={x:Reference this}, Path=SelectedDate, StringFormat='{0: MMM dd yyyy}'}" />
+        <StackLayout
+            Grid.Column="1"
+            HorizontalOptions="End"
+            Orientation="Horizontal"
+            Spacing="20">
+            <Image
+                HeightRequest="25"
+                Source="left.png"
+                WidthRequest="25">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=PreviousMonthCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
+            <Image
+                HeightRequest="25"
+                Source="right.png"
+                WidthRequest="25">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=NextMonthCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
+        </StackLayout>
+    </Grid>
+
+
+    <CollectionView ItemsSource="{Binding Source={x:Reference this}, Path=Weeks}">
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Grid
+                    HeightRequest="65"
+                    Padding="3"
+                    RowSpacing="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <CollectionView Grid.Column="1" ItemsSource="{Binding Value}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="1" Orientation="Horizontal" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    Background="#2B0B98"
+                                    HeightRequest="55"
+                                    Stroke="#C49B33"
+                                    StrokeShape="RoundRectangle 40,0,0,40"
+                                    StrokeThickness="4"
+                                    VerticalOptions="Start"
+                                    WidthRequest="55">
+                                    <VerticalStackLayout Padding="5">
+                                        <Label
+                                            FontSize="16"
+                                            HorizontalTextAlignment="Center"
+                                            Text="{Binding Date, StringFormat='{0:ddd}'}"
+                                            TextColor="White">
+                                            <Label.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding IsCurrentDate}"
+                                                    TargetType="Label"
+                                                    Value="true">
+                                                    <Setter Property="TextColor" Value="Yellow" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="12"
+                                            HorizontalTextAlignment="Center"
+                                            Text="{Binding Date, StringFormat='{0:d }'}"
+                                            TextColor="White">
+                                            <Label.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding IsCurrentDate}"
+                                                    TargetType="Label"
+                                                    Value="true">
+                                                    <Setter Property="TextColor" Value="Yellow" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+                                    </VerticalStackLayout>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=CurrentDateCommand}" CommandParameter="{Binding .}" />
+                                    </Border.GestureRecognizers>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+</StackLayout>
